@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>UTM Keeper - Home</title>
+  </head>
+
+  <body>
+    <h1>UTM Keeper Example - Home</h1>
+
+    <a href="#home">Home</a>
+    <a href="page1.html">Page 1</a>
+    <a href="page2.html#teste">Page 2</a>
+
+    <form action="." method="GET">
+      <div>
+        <label>UTM Source</label>
+        <input type="text" name="utm_source" />
+      </div>
+
+      <div>
+        <label>UTM Medium</label>
+        <input type="text" name="utm_medium" />
+      </div>
+
+      <div>
+        <label>UTM Campaign</label>
+        <input type="text" name="utm_campaign" />
+      </div>
+
+      <div>
+        <label>UTM Term</label>
+        <input type="text" name="utm_term" />
+      </div>
+
+      <div>
+        <label>Not UTM</label>
+        <input type="text" name="not_utm" />
+      </div>
+
+      <button type="submit">submit</button>
+    </form>
+
+    <script src="../src/utmkeeper.js" charset="utf-8"></script>
+    <script charset="utf-8">
+      utmkeeper.load();
+    </script>
+  </body>
+</html>
