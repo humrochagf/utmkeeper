@@ -2,7 +2,7 @@
   "name": "utmkeeper",
   "version": "0.1.0",
   "description": "Keep utm parameters throughout navigation",
-  "main": "./src/utmkeeper.js",
+  "main": "src/utmkeeper.js",
   "scripts": {
   },
   "author": "Humberto Rocha",

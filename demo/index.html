@@ -44,7 +44,7 @@
 
     <script src="../src/utmkeeper.js" charset="utf-8"></script>
     <script charset="utf-8">
-      utmkeeper.load();
+      utmkeeper.load(true, true, function(utms){console.log(utms);});
     </script>
   </body>
 </html>

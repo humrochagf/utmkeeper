@@ -40,14 +40,14 @@ var utmkeeper = {};
         });
 
         // set parameter value (use 'true' if empty)
-        var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+        var paramValue = typeof a[1] ==='undefined' ? true : a[1];
 
         // (optional) keep case consistent
-        if (typeof(paramName) === 'string') {
+        if (typeof paramName === 'string') {
           paramName = paramName.toLowerCase();
         }
 
-        if (typeof(paramValue) === 'string') {
+        if (typeof paramValue === 'string') {
           paramValue = unescape(paramValue).toLowerCase();
         }
 
@@ -108,7 +108,7 @@ var utmkeeper = {};
     return searchUrl;
   }
 
-  context.load = function(forceOriginUTM=true, fillForms=true) {
+  context.load = function(forceOriginUTM=true, fillForms=true, postLoad=null) {
     // stores current location search
     var originSearchObj = context.extractUrlParams(null, 'utm_');
 
@@ -188,6 +188,10 @@ var utmkeeper = {};
           }
         }
       }
+    }
+
+    if (typeof postLoad === 'function') {
+      postLoad(originSearchObj);
     }
   }
 })(utmkeeper);
