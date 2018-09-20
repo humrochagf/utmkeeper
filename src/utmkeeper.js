@@ -1,6 +1,21 @@
 var utmkeeper = {};
 
 (function(context) {
+  var config = {
+    // override page utms with the url utms
+    forceOriginUTM: true,
+    // fill page forms with the url utms
+    fillForms: true,
+    // starting utm object to start the parsing with a custom set of utms
+    utmObject: {},
+    // post load function that receives a object as parameter
+    // to run custom logic after utm processing. Example:
+    // function(utms) {
+    //   console.log(utms);
+    // }
+    postLoad: null,
+  };
+
   context.extractUrlParams = function(url='', prefix='') {
     // get query string from url (optional) or window
     var queryString = '';
@@ -108,9 +123,17 @@ var utmkeeper = {};
     return searchUrl;
   }
 
-  context.load = function(forceOriginUTM=true, fillForms=true, postLoad=null) {
+  context.load = function(customConfig) {
+    // set custom config
+    if (typeof customConfig === 'object') {
+      config = Object.assign(config, customConfig);
+    }
+
     // stores current location search
-    var originSearchObj = context.extractUrlParams(null, 'utm_');
+    var originSearchObj = Object.assign(
+      config.utmObject,
+      context.extractUrlParams(null, 'utm_')
+    );
 
     // for each link at the page
     for (var link of document.querySelectorAll('[href]')) {
@@ -145,7 +168,7 @@ var utmkeeper = {};
         // merge the two search contents
         // if forceOriginUTM is true, any utm at the links will be overrided
         var mergedSearchObj = null;
-        if (forceOriginUTM) {
+        if (config.forceOriginUTM) {
           mergedSearchObj = Object.assign(linkSearchObj, originSearchObj);
         } else {
           mergedSearchObj = Object.assign(originSearchObj, linkSearchObj);
@@ -168,14 +191,14 @@ var utmkeeper = {};
     }
 
     // add the utm values to the forms
-    if (fillForms) {
+    if (config.fillForms) {
       for (var form of document.querySelectorAll('form')) {
         for (var key in originSearchObj) {
           var input = form.querySelector('input[name="' + key + '"]');
 
           if (input) {
             // override existing input value
-            if (forceOriginUTM || !input.value) {
+            if (config.forceOriginUTM || !input.value) {
               input.value = originSearchObj[key];
             }
           } else {
@@ -190,8 +213,8 @@ var utmkeeper = {};
       }
     }
 
-    if (typeof postLoad === 'function') {
-      postLoad(originSearchObj);
+    if (typeof config.postLoad === 'function') {
+      config.postLoad(originSearchObj);
     }
   }
 })(utmkeeper);
