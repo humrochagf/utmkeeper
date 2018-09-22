@@ -136,7 +136,7 @@ var utmkeeper = {};
     );
 
     // for each link at the page
-    for (var link of document.querySelectorAll('[href]')) {
+    for (var link of document.querySelectorAll('a')) {
       var base = '';
       var search = '';
       var hash = '';
