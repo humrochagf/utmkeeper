@@ -48,8 +48,10 @@
         forceOriginUTM: true,
         fillForms: true,
         utmObject: {
-          utm_test: 'test'
+          utm_test: 'test',
+          extra1: 'extra1',
         },
+        extraParameters: ['extra1', 'extra2'],
         postLoad: function(utms){console.log(utms);}
       });
     </script>

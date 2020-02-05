@@ -32,6 +32,11 @@ var utmkeeper = {};
       queryString = window.location.search.slice(1);
     }
 
+    // take `extraParameters` from config
+    // but have it as array
+    // if empty then empty array ( [] )
+    var extraParameters = config.extraParameters || [];
+
     // we'll store the parameters here
     var obj = {};
 
@@ -67,7 +72,11 @@ var utmkeeper = {};
         }
 
         // extract only if matches the filter and has value
-        if (paramName.startsWith(prefix) && paramValue) {
+        if (
+          paramValue &&
+          // start with `prefix` or one of `extraParameters`
+          (paramName.startsWith(prefix) || extraParameters.includes(paramName))
+        ) {
           // if parameter name already exists
           if (obj[paramName]) {
             // convert value to array (if still string)
