@@ -8,6 +8,8 @@ var utmkeeper = {};
     fillForms: true,
     // starting utm object to start the parsing with a custom set of utms
     utmObject: {},
+    // extra parameters to be persisted across requests, not only "utm_*"
+    extraParameters: [],
     // post load function that receives a object as parameter
     // to run custom logic after utm processing. Example:
     // function(utms) {
@@ -33,9 +35,7 @@ var utmkeeper = {};
     }
 
     // take `extraParameters` from config
-    // but have it as array
-    // if empty then empty array ( [] )
-    var extraParameters = config.extraParameters || [];
+    var extraParameters = config.extraParameters;
 
     // we'll store the parameters here
     var obj = {};
